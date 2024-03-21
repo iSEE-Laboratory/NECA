@@ -1,0 +1,42 @@
+exp_name: '386_sdf_nerf'
+# datasets
+train_dataset_module: 'lib.datasets.zju_mocap_dataset'
+train_dataset_path: 'lib/datasets/zju_mocap_dataset.py'
+test_dataset_module: 'lib.datasets.zju_mocap_dataset'
+test_dataset_path: 'lib/datasets/zju_mocap_dataset.py'
+
+train_dataset:
+  data_root: './data/zju_mocap/CoreView_386'
+  human: 'C386'
+  split: 'train'
+  begin_frame: 0
+  end_frame: 300
+  frame_interval: 1
+  view: [ 0,6,12,18 ]
+
+test_dataset:
+  data_root: './data/zju_mocap/CoreView_386'
+  human: 'C386'
+  split: 'test'
+  begin_frame: 0
+  end_frame: 1
+  frame_interval: 1
+  view: [ 0 ]
+
+# evaluation
+novel_view_eval_cfg:
+  test_dataset:
+    begin_frame: 0
+    end_frame: 300
+    frame_interval: 30
+    view: [ 1,2,3,4,5,7,8,9,10,11,13,14,15,16,17,19,20,21,22 ]
+
+novel_pose_eval_cfg:
+  test_dataset:
+    begin_frame: 300
+    end_frame: 647
+    frame_interval: 30
+    view: [ 1,2,3,4,5,7,8,9,10,11,13,14,15,16,17,19,20,21,22 ]
+
+key_pose_num: 300
+knn: 5

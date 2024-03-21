@@ -1,0 +1,237 @@
+exp_name: ''
+
+# modules
+train_dataset_module: ''
+train_dataset_path: ''
+test_dataset_module: ''
+test_dataset_path: ''
+
+network_module: 'lib.networks.network'
+network_path: 'lib/networks/network.py'
+
+renderer_module: 'lib.renderers.image_renderer'
+renderer_path: 'lib/renderers/image_renderer.py'
+
+evaluator_module: 'lib.evaluators.image_evaluator'
+evaluator_path: 'lib/evaluators/image_evaluator.py'
+
+visualizer_module: 'lib.visualizers.image_visualizer'
+visualizer_path: 'lib/visualizers/image_visualizer.py'
+
+# datasets
+train_dataset:
+  data_root: ''
+  human: ''
+  split: ''
+  begin_frame: -1
+  end_frame: -1
+  frame_interval: -1
+  view: [ ]
+
+test_dataset:
+  data_root: ''
+  human: ''
+  split: ''
+  begin_frame: -1
+  end_frame: -1
+  frame_interval: -1
+  view: [ ]
+
+# networks
+network:
+  pose_dim: 69
+  sdf:
+    in_dim: 154
+    out_dim: 257
+    depth: 8
+    width: 256
+    skip: [ 4 ]
+    xyz_multires: 10
+    bias: 0.5
+    scale: 1
+    geometric_init: true
+    weight_norm: true
+    activation: 'softplus'
+    in_pose_feat: true
+  beta:
+    init_val: 0.01
+  albedo:
+    in_dim: 256
+    out_dim: 3
+    depth: 4
+    width: 256
+    skip: [ ]
+    xyz_multires: 4
+    view_multires: 0
+    normal_multires: 0
+    weight_norm: true
+    activation: 'relu'
+    in_viewdir: false
+    in_pts: true
+    in_normal: false
+  shadow:
+    in_dim: 256
+    out_dim: 1
+    depth: 4
+    width: 256
+    skip: [ ]
+    xyz_multires: 0
+    view_multires: 4
+    normal_multires: 4
+    weight_norm: true
+    activation: 'relu'
+    in_viewdir: true
+    in_pts: false
+    in_normal: true
+  R: 48
+
+# train
+train:
+  epoch: -1
+  max_iter: 200000
+  batch_size: 1
+  shuffle: true
+  lr: 5.e-4
+  weight_decay: 0
+  optim: 'adam'
+  scheduler:
+    type: 'exponential'
+    decay: 300
+    gamma: 0.1
+
+
+# test
+test:
+  batch_size: 1
+  shuffle: false
+
+
+# loss
+loss:
+  eikonal: 0.1
+  mask: 1.
+  img: 1.
+  lpips: 0.1
+  tv: 10.
+  normal: 0.1
+
+lpips_iter: 100000
+stop_lpips_iter: 2000000
+use_novel_pose: true
+num_workers: 4
+save_iter: 2000
+eval_iter: 2000
+record_iter: 20
+light_type: 'envmap'
+hdr_path: ''
+ckpt_path: ''
+
+# sample
+points_num: 81920
+surface_ratio: 0.8
+num_rays: 1024
+num_pts: 64
+chunk: 2048
+erode_edge: true
+image_ratio: 0.5
+mask_bkgd: true
+box_padding: 0.05
+face_sample_ratio: 0.0
+body_sample_ratio: 0.5
+voxel_size: [ 0.005, 0.005, 0.005 ]
+
+ray_mode: 'image'
+num_patch: 1
+patch_size: 32
+sample_subject_ratio: 0.9
+bg_color: [ 0,0,0 ]
+white_bkgd: false
+# threshold
+norm_th: 0.1
+reshape: [4,0]
+concat_pose: true
+num_render_views: 50
+tpose_viewdir: true
+key_pose_num: -1
+knn: -1
+drop_shadow: false
+vert_num: 6890
+pose_dim: 69
+joint_num: 24
+mask_result: false
+out_single_img: false
+out_dis: true
+light_scale: true
+shape_num: 10
+tonemapping: False
+H: 1024
+W: 1024
+# evaluation
+novel_view_eval_cfg:
+  test_dataset:
+    begin_frame: -1
+    end_frame: -1
+    frame_interval: -1
+    view: [ ]
+
+novel_pose_eval_cfg:
+  test_dataset:
+    begin_frame: -1
+    end_frame: -1
+    frame_interval: -1
+    view: [ ]
+
+# visualize
+relight_cfg:
+  test_dataset_module: 'lib.datasets.freeview'
+  test_dataset_path: 'lib/datasets/freeview.py'
+  test_dataset:
+    begin_frame: 0
+    end_frame: 1
+    frame_interval: 1
+    view: [ 0 ]
+
+reshape_cfg:
+  test_dataset_module: 'lib.datasets.reshape'
+  test_dataset_path: 'lib/datasets/reshape.py'
+  network_module: 'lib.networks.reshape'
+  network_path: 'lib/networks/reshape.py'
+  test_dataset:
+    begin_frame: 0
+    end_frame: 1
+    frame_interval: 1
+    view: [ 0 ]
+
+recloth_cfg:
+  upper_name: '313_sdf_nerf'
+  upper_path: 'zju_mocap/CoreView_313'
+  upper_key_pose_num: 60
+  upper_param: '313.npy'
+  lower_name: '386_sdf_nerf'
+  lower_path: 'zju_mocap/CoreView_386'
+  lower_key_pose_num: 300
+  lower_param: '386.npy'
+
+  test_dataset_module: 'lib.datasets.recloth'
+  test_dataset_path: 'lib/datasets/recloth.py'
+  network_module: 'lib.networks.texture_edit'
+  network_path: 'lib/networks/texture_edit.py'
+  renderer_module: 'lib.renderers.recloth'
+  renderer_path: 'lib/renderers/recloth.py'
+
+reshadow_cfg:
+  upper_name: 'lan_f0v0'
+  upper_path: 'monocap/lan'
+  upper_key_pose_num: 1
+  upper_param: 'lan.npy'
+  lower_name: 'vlad_sdf_nerf'
+  lower_path: 'monocap/vlad'
+  lower_key_pose_num: 300
+  lower_param: 'vlad.npy'
+
+  test_dataset_module: 'lib.datasets.recloth'
+  test_dataset_path: 'lib/datasets/recloth.py'
+  network_module: 'lib.networks.texture_edit'
+  network_path: 'lib/networks/texture_edit.py'
+  renderer_module: 'lib.renderers.recloth'
+  renderer_path: 'lib/renderers/recloth.py'
