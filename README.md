@@ -99,3 +99,10 @@ If you find this code useful for your research, please cite this:
     year={2024}
 }
 ```
+
+## Related Work
+[Animatable NeRF](https://github.com/zju3dv/animatable_nerf)
+[SA-NeRF](https://github.com/pfnet-research/surface-aligned-nerf)
+[ARAH](https://github.com/taconite/arah-release)
+[Relighting4D](https://github.com/FrozenBurning/Relighting4D)
+[PoseVocab](https://github.com/lizhe00/posevocab)
