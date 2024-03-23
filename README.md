@@ -105,6 +105,8 @@ If you find this code useful for your research, please cite this:
 
 [SA-NeRF](https://github.com/pfnet-research/surface-aligned-nerf)
 
+[HumanNeRF](https://github.com/chungyiweng/humannerf)
+
 [ARAH](https://github.com/taconite/arah-release)
 
 [Relighting4D](https://github.com/FrozenBurning/Relighting4D)
