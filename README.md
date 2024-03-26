@@ -32,7 +32,7 @@ python lib/tools/process_dataset.py
 ```
 
 #### SMPL
-Down neutral SMPL model from [here](https://smplify.is.tue.mpg.de/) and unpack ```mpips_smplify_public_v2.zip```. 
+Download neutral SMPL model from [here](https://smplify.is.tue.mpg.de/) and unpack ```mpips_smplify_public_v2.zip```. 
 Using [this page](https://github.com/vchoutas/smplx/tree/main/tools) to remove Chumpy objects from the SMPL model.
 Copy it to ```data/smpl_model``` and rename it as ```SMPL_NEUTRAL.pkl```.
 
